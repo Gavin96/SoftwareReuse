@@ -14,7 +14,8 @@ public class Server {
     static private List<User> users = new ArrayList<User>();
     static private int validLoginTime = 0;
     static private int invalidLoginTime = 0;
-
+    static private Server server;
+    
     private void userInit()
     {
         users.add(new User("liu","123",false,0,0,0));
@@ -24,7 +25,7 @@ public class Server {
         users.add(new User("li", "123", false, 0, 0, 0));
     }
 
-    public  Server ()
+    private  Server ()
     {
         userInit();
     }
@@ -70,8 +71,18 @@ public class Server {
         return null;
     }
 
+    public static Server sharedServer()
+    {
+    	if (server == null)
+    	{
+    		server = new Server();
+    	}
+    	return server;
+    }
+    
     public int login (String userName, String password)
     {
+    	System.out.println("after"+userName);
         User theUser = findUser(userName);
         if(!theUser.equals(null))
         {
@@ -127,7 +138,7 @@ public class Server {
         User sender = findUser(senderName);
         if (!sender.equals(null) && sender.isLogin) {
             sender.sendMessagesNum++;
-            if (sender.sendMessagesNum < 100) {
+            if (sender.sendMessagesNum < 2) {
                   return true;
                 }else return false;
             } else {
@@ -138,6 +149,8 @@ public class Server {
                 return false;
             }
         }
+
+	
     
 // Login test passed
 

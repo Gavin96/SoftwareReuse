@@ -23,13 +23,17 @@ import Server.Server;
 import Topic.MySubscriber;
 
 public class Client extends JFrame{
-	//登陆组件
+	public String staticUsername;
+	
+	//登陆JFrame
+	public JFrame loginFrame;
 	JLabel username;
 	JLabel password;
 	JTextField usernameInput;
 	JPasswordField passwordInput;
 	JButton login;
 	JButton register;
+	
 	
 	//注册时用到的组件
 	JLabel regUsername;
@@ -67,55 +71,44 @@ public class Client extends JFrame{
 	
 	String name;
 	Server server;
+	
 	public Client(){
 		super();
-		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		this.setTitle("客户端");
-		this.setBounds(10, 10, 600, 700);
-		name="";
-		status=true;
-		server=new Server();
-		msgNumberCount = 0;
-		unmsgNumberCount = 0;
-		loginSuccessfulCount = 0;
-		loginFailCount = 0;
 		
-		JPanel panel = new JPanel();
-		panel.setLayout(null);
-		panel.setBounds(0,0,600,700);
+		JFrame loginFrame = new JFrame();
+		loginFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		loginFrame.setTitle("登陆");
+		loginFrame.setBounds(50, 50, 300, 200);
+		JPanel loginPanel = new JPanel();
+		loginPanel.setLayout(new GridLayout(3, 1));
 		
-		username = new JLabel();
-		username.setText("用户名 :");
-		password = new JLabel();
-		password.setText("密   码 :");
+		username = new JLabel("用户名 :");
+		password = new JLabel("密   码 :");
 		usernameInput = new JTextField(10);
-		//usernameInput.setBounds(0, 0, 100, 50);
 		passwordInput = new JPasswordField(10);
-		//passwordInput.setBounds(0, 0, 100, 50);
 		login = new JButton("登陆");
 		register = new JButton("注册");
-		JPanel subPanel = new JPanel();
-		subPanel.setLayout(new GridLayout(3, 1));
 		
-		JPanel subPanel1 = new JPanel();
-		subPanel1.add(username);
-		subPanel1.add(usernameInput);
-		JPanel subPanel2 = new JPanel();
-		subPanel2.add(password);
-		subPanel2.add(passwordInput);
-		JPanel subPanel3 = new JPanel();
-		subPanel3.add(login);
-		subPanel3.add(register);
+		JPanel loginPanel1 = new JPanel();
+		loginPanel1.add(username);
+		loginPanel1.add(usernameInput);
+		JPanel loginPanel2 = new JPanel();
+		loginPanel2.add(password);
+		loginPanel2.add(passwordInput);
+		JPanel loginPanel3 = new JPanel();
+		loginPanel3.add(login);
+		loginPanel3.add(register);
 		
-		subPanel.add(subPanel1);
-		subPanel.add(subPanel2);
-		subPanel.add(subPanel3);
+		login.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				System.out.println("before"+usernameInput.getText());
+				Login(usernameInput.getText(), passwordInput.getText());
+				staticUsername = usernameInput.getText();
 		
-		subPanel.setBounds(0, 20, 300, 180);
-		panel.add(subPanel);
-		
-		
-		
+			}
+		});
 		register.addActionListener(new ActionListener() {
 			
 			@Override
@@ -168,6 +161,72 @@ public class Client extends JFrame{
 				
 			}
 		});
+		
+		loginPanel.add(loginPanel1);
+		loginPanel.add(loginPanel2);
+		loginPanel.add(loginPanel3);
+		
+		loginFrame.add(loginPanel);
+		loginFrame.setVisible(true);
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		this.setTitle("客户端");
+		this.setBounds(10, 10, 600, 700);
+		name="";
+		status=true;
+		server=Server.sharedServer();
+		msgNumberCount = 0;
+		unmsgNumberCount = 0;
+		loginSuccessfulCount = 0;
+		loginFailCount = 0;
+		
+		JPanel panel = new JPanel();
+		panel.setLayout(null);
+		panel.setBounds(0,0,600,700);
+		
+		/*username = new JLabel();
+		username.setText("用户名 :");
+		password = new JLabel();
+		password.setText("密   码 :");
+		usernameInput = new JTextField(10);
+		//usernameInput.setBounds(0, 0, 100, 50);
+		passwordInput = new JPasswordField(10);
+		//passwordInput.setBounds(0, 0, 100, 50);
+		login = new JButton("登陆");
+		register = new JButton("注册");
+		JPanel subPanel = new JPanel();
+		subPanel.setLayout(new GridLayout(3, 1));
+		
+		JPanel subPanel1 = new JPanel();
+		subPanel1.add(username);
+		subPanel1.add(usernameInput);
+		JPanel subPanel2 = new JPanel();
+		subPanel2.add(password);
+		subPanel2.add(passwordInput);
+		JPanel subPanel3 = new JPanel();
+		subPanel3.add(login);
+		subPanel3.add(register);
+		
+		subPanel.add(subPanel1);
+		subPanel.add(subPanel2);
+		subPanel.add(subPanel3);
+		
+		subPanel.setBounds(0, 20, 300, 180);
+		panel.add(subPanel);*/
+		
+		
+		
+		
 		
 		
 		
@@ -244,13 +303,13 @@ public class Client extends JFrame{
 		panel.add(msgSentLabel);
 		panel.add(msgSent);
 		panel.add(sentButton);
-		login.addActionListener(new ActionListener() {		
+		/*login.addActionListener(new ActionListener() {		
 			@Override
 			public void actionPerformed(ActionEvent e) {			
 				Login(usernameInput.getText(), passwordInput.getText());
 		
 			}
-		});
+		});*/
 		sentButton.addActionListener(new ActionListener() {
 			
 			@Override
@@ -267,7 +326,7 @@ public class Client extends JFrame{
 		});
 	
 		this.add(panel);
-		this.setVisible(true);
+		this.setVisible(false);
 	}
 
 	public  void Login(String userName, String password){
@@ -294,10 +353,12 @@ public class Client extends JFrame{
 		if(isLogin){
 		producer.send(msg);}
 		else{
-			if(server.sendMessages(usernameInput.getText())){
+			if(server.sendMessages(staticUsername)){
 				producer.send(msg);
-			}else{
-				//relogin
+           	}else{
+           		//////////relogin
+           		this.setVisible(false);
+           		loginFrame.setVisible(true);
 			}
 		}
         System.out.println(msg.getText());
@@ -341,20 +402,27 @@ public class Client extends JFrame{
   			public void onMessage(Message msg) {
   				
   				TextMessage txtMsg = (TextMessage) msg;
+  				
   				try {
-  				//	System.out.println(isLogin+"  "+topicName);
+  					System.out.println(isLogin+"  "+topicName+ " "+ status+txtMsg.getText());
   					if(!isLogin){
-  						if(status){
+  						if(status){ 
   							if(feedbackDisplay.getText().equals("200")){
   							msgDisplay.setText(txtMsg.getText());
-  							status=true;
-							}
+  							
+  							}
   						}
   						
   					}else{
   						
   						feedbackDisplay.setText(txtMsg.getText());
   						if(txtMsg.getText().equals("200")){
+  							
+  							////////alredy login
+  							Client.this.setVisible(true);
+  							loginFrame.setVisible(false);
+  							
+  							currentStateDisplay.setText("已登录");
   							loginSuccessfulCount++;
   							loginSuccessfulDisplay.setText(String.valueOf(loginSuccessfulCount));
   						}else{
@@ -367,6 +435,7 @@ public class Client extends JFrame{
   						// TODO Auto-generated catch block
   						e.printStackTrace();
   					}
+  				status=true;
   			}
   		    });
   		    
@@ -401,6 +470,8 @@ public class Client extends JFrame{
 		mainListen.start();
 		client.name=String.valueOf(ClientCount);
 		Listen loginListen = client.new Listen(client.name,true);
+		//Listen loginListen = client.new Listen("sb",true);
+		
 	    loginListen.start();
 		
 	}
