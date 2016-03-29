@@ -6,7 +6,7 @@ package Server;
  */
 public class User {
 
-	
+
     public  String UserName;
     public  String Password;
     public  boolean isLogin;
@@ -16,7 +16,7 @@ public class User {
 
     public User(String _username, String _password, boolean _isLogin, int _loginRequestTime, long _loginDate, int _sendMessagesNum)
     {
-    	
+
         UserName = _username;
         Password = _password;
         isLogin = _isLogin;
@@ -24,7 +24,7 @@ public class User {
         loginDate = _loginDate;
         sendMessagesNum = _sendMessagesNum;
     }
-    
-   
+
+
 
 }
