@@ -1,6 +1,7 @@
 package Server;
 
 
+import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -23,6 +24,7 @@ import com.HaroldLIU.PerformanceManager;
 
 import extent.SaveMsgtoFile;
 //import Configuration.Configuration;
+import clearfilefolder.Clear;
 import reuse.cm.ReadJson;
 //import reuse.pm.PMManager;
 //import com.HaroldLIU.LicenseManager;
@@ -244,8 +246,13 @@ public class Server {
             e2.printStackTrace();
         }
     }
-    public static void main(String[] args) throws Exception {
 
+	 
+	 
+	 
+    public static void main(String[] args) throws Exception {		
+		
+		
     	port = "tcp://localhost:" + ReadJson.GetConfig("port", "sets.txt");
     	timeGap = Integer.parseInt(ReadJson.GetConfig("timeGap", "sets.txt"));
     	maxRequestTimes = Integer.parseInt(ReadJson.GetConfig("maxRequestTimes", "sets.txt"));

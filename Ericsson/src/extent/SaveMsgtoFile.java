@@ -14,8 +14,8 @@ public class SaveMsgtoFile {
 	}
 	
 	public static void main(String[] args) throws IOException{
-		SaveMsgtoFile.SavetoFile("E:\\", "test.txt", "5");
-		SaveMsgtoFile.SavetoFile("E:\\", "test.txt", "6");
-		SaveMsgtoFile.SavetoFile("E:\\", "test.txt", "7");
+		SaveMsgtoFile.SavetoFile("I:\\", "test.txt", "5");
+		SaveMsgtoFile.SavetoFile("I:\\", "test.txt", "6");
+		SaveMsgtoFile.SavetoFile("I:\\", "test.txt", "7");
 	}
 }

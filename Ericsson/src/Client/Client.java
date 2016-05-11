@@ -4,6 +4,8 @@ import java.awt.Color;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -28,6 +30,7 @@ import com.TopicLuo.MySubscriber;
 
 import extent.SaveMsgtoFile;
 //import Configuration.Configuration;
+import clearfilefolder.Clear;
 import reuse.cm.ReadJson;
 
 //import com.HaroldLIU.LicenseManager;
@@ -86,7 +89,8 @@ public class Client extends JFrame{
 	String name;
 
 	//LicenseManager licenseManager = new LicenseManager();
-	PerformanceManager performanceManager = new PerformanceManager(path,path,60*1000);
+//	PerformanceManager performanceManager = new PerformanceManager(path,path,5*1000);
+    PerformanceManager performanceManager = new PerformanceManager(path,path,60*1000);
 	//PMManager pmManager=new PMManager(path,1);
 	public Client(){
 		super();
@@ -440,9 +444,36 @@ public class Client extends JFrame{
 			}
 		}
 	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
 
+		
+	
+	
+	
+	
 	public static void main(String[] args) throws Exception {
 
+		
+//		double filesize = Clear.getDirSize(new File("I:\\ForReuse\\Server2016_05_08ReceivedMsgRecord.txt"));
+//		if(filesize>Long.parseLong(ReadJson.GetConfig("file size", "sets.txt"))){
+//			File f = new File("I:\\ForReuse\\Server2016_05_08ReceivedMsgRecord.txt");
+//			FileWriter fw =  new FileWriter(f);
+//			//给指定文件中写入空字符，等同于清空文件
+//			fw.write("");
+//			fw.close();
+//		}
+		
+		
+		
+		
 		long ClientCount=MySubscriber.getConsumerCount();
 		Client client = new Client();
 		

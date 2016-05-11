@@ -32,102 +32,102 @@ public class PerformanceManager {
     public int successTime = 0, failTime = 0;
     private static  String path;
     private String zipPath;
-	private final long delay;
-	private static String zipName;
-	private static String oldPath;
-	private static long begin;
-	private static long beginZipSpace;
-	private static long beginZipFiled;
-	private static long zipSpaceTime;
-	private static long zipFiledTime;
+    private final long delay;
+    private static String zipName;
+    private static String oldPath;
+    private static long begin;
+    private static long beginZipSpace;
+    private static long beginZipFiled;
+    private static long zipSpaceTime;
+    private static long zipFiledTime;
 
-	public static long getBegin() {
-		return begin;
-	}
-	public static void setBegin(long begin) {
-		PerformanceManager.begin = begin;
-		PerformanceManager.beginZipSpace = begin;
-		PerformanceManager.beginZipFiled = begin;
-		
-	}
-	public static long getBeginZipSpace() {
-		return beginZipSpace;
-	}
-	public static void setBeginZipSpace(long beginZipSpace) {
-		PerformanceManager.beginZipSpace = beginZipSpace;
-	}
-	public static long getBeginZipFiled() {
-		return beginZipFiled;
-	}
-	public static void setBeginZipFiled(long beginZipFiled) {
-		PerformanceManager.beginZipFiled = beginZipFiled;
-	}
-	public static long getZipSpaceTime() {
-		return zipSpaceTime;
-	}
-	public static void setZipSpaceTime(long zipSpaceTime) {
-		PerformanceManager.zipSpaceTime = zipSpaceTime;
-	}
-	public static long getZipFiledTime() {
-		return zipFiledTime;
-	}
-	public static void setZipFiledTime(long zipFiledTime) {
-		if(zipFiledTime<zipSpaceTime){
-			zipFiledTime=2*zipSpaceTime;
-		}else{
-		PerformanceManager.zipFiledTime = zipFiledTime;
-		}
-	}
-	
+    public static long getBegin() {
+        return begin;
+    }
+    public static void setBegin(long begin) {
+        PerformanceManager.begin = begin;
+        PerformanceManager.beginZipSpace = begin;
+        PerformanceManager.beginZipFiled = begin;
+
+    }
+    public static long getBeginZipSpace() {
+        return beginZipSpace;
+    }
+    public static void setBeginZipSpace(long beginZipSpace) {
+        PerformanceManager.beginZipSpace = beginZipSpace;
+    }
+    public static long getBeginZipFiled() {
+        return beginZipFiled;
+    }
+    public static void setBeginZipFiled(long beginZipFiled) {
+        PerformanceManager.beginZipFiled = beginZipFiled;
+    }
+    public static long getZipSpaceTime() {
+        return zipSpaceTime;
+    }
+    public static void setZipSpaceTime(long zipSpaceTime) {
+        PerformanceManager.zipSpaceTime = zipSpaceTime;
+    }
+    public static long getZipFiledTime() {
+        return zipFiledTime;
+    }
+    public static void setZipFiledTime(long zipFiledTime) {
+        if(zipFiledTime<zipSpaceTime){
+            zipFiledTime=2*zipSpaceTime;
+        }else{
+            PerformanceManager.zipFiledTime = zipFiledTime;
+        }
+    }
+
     private class WriterTask extends TimerTask {
-        //Ğ´ÈëÎÄ¼ş
+        //å†™å…¥æ–‡ä»¶
         private  boolean writeToFile(int successTime,int failTime) {
-        	String timeCheck=new SimpleDateFormat("HH_mm").format(Calendar.getInstance().getTime());
-        	Calendar now=Calendar.getInstance();
-        	long date=now.getTimeInMillis();
-			  long zipspace=(date-beginZipSpace)/1000;
-        	if(zipspace==zipSpaceTime){
-        		beginZipSpace=date;
-        		//System.out.println("zipPath: "+zipPath+ " name: "+zipName);
-        		//Ã¿ÖÜ¹éµµ£¬ÖÜÈÕ£¬ÖÜÒ»£¬ÖÜ¶ş£¬ÖÜÈı£¬ÖÜËÄ£¬ÖÜÎå£¬ÖÜÁù
-        		long zipfiled=(date-beginZipFiled)/1000;
-            	if(zipfiled==zipFiledTime){
-            		zipFiledTime=date;
-            		weeklyZip();
-            		recurDelete(new File(zipPath+"\\data\\"));
-            		
-            	}
-            	
-            	
-            	//¹éµµÇ°¼ÓÃÜ
-              
-  			  File file=new File(path);
-  			  File[] tempList = file.listFiles();
-  			  
-  			  for (int i = 0; i < tempList.length; i++) {
-  			   if (tempList[i].isFile()) {
-  				 FileEncryption fe = new FileEncryption("Ericsson");  //²ÎÊıÎªËæ±ãÒ»¸ö×Ö·û´®£¬²»Í¬µÄ×Ö·û´®Éú³É²»Í¬µÄ¼ÓÃÜÎÄ¼ş
+            String timeCheck=new SimpleDateFormat("HH_mm").format(Calendar.getInstance().getTime());
+            Calendar now=Calendar.getInstance();
+            long date=now.getTimeInMillis();
+            long zipspace=(date-beginZipSpace)/1000;
+            if(zipspace==zipSpaceTime){
+                beginZipSpace=date;
+                //System.out.println("zipPath: "+zipPath+ " name: "+zipName);
+                //æ¯å‘¨å½’æ¡£ï¼Œå‘¨æ—¥ï¼Œå‘¨ä¸€ï¼Œå‘¨äºŒï¼Œå‘¨ä¸‰ï¼Œå‘¨å››ï¼Œå‘¨äº”ï¼Œå‘¨å…­
+                long zipfiled=(date-beginZipFiled)/1000;
+                if(zipfiled==zipFiledTime){
+                    zipFiledTime=date;
+                    weeklyZip();
+                    recurDelete(new File(zipPath+"\\data\\"));
 
-             	try {
-             		fe.encrypt(path+"\\"+tempList[i].getName(),path+"\\"+ tempList[i].getName());   //µÚÒ»¸ö²ÎÊıÎªĞèÒª¼ÓÃÜµÄÎÄ¼ş£¬µÚ¶ş¸ö²ÎÊıÎª¼ÓÃÜÉú³ÉµÄÎÄ¼ş
-             	//	fe.decrypt(path+"\\"+tempList[i].getName(),path+"\\"+ tempList[i].getName());  //µÚÒ»¸ö²ÎÊıÎªĞèÒª½âÃÜµÄÎÄ¼ş£¬µÚ¶ş¸ö²ÎÊıÎª½âÃÜÉú³ÉµÄÎÄ¼ş
-             	} catch (Exception e) {
-             		e.printStackTrace();
-             	}
-  			   // System.out.println("ÎÄ¼ş£º"+tempList[i]);
-  			   }
-  			  }
-            	
-            	
-        		zip(path,zipName,zipPath);
-        		recurDelete(new File(path));
+                }
+
+
+                //å½’æ¡£å‰åŠ å¯†
+
+                File file=new File(path);
+                File[] tempList = file.listFiles();
+
+                for (int i = 0; i < tempList.length; i++) {
+                    if (tempList[i].isFile()) {
+                        FileEncryption fe = new FileEncryption("Ericsson");  //å‚æ•°ä¸ºéšä¾¿ä¸€ä¸ªå­—ç¬¦ä¸²ï¼Œä¸åŒçš„å­—ç¬¦ä¸²ç”Ÿæˆä¸åŒçš„åŠ å¯†æ–‡ä»¶
+
+                        try {
+                            fe.encrypt(path+"\\"+tempList[i].getName(),path+"\\"+ tempList[i].getName());   //ç¬¬ä¸€ä¸ªå‚æ•°ä¸ºéœ€è¦åŠ å¯†çš„æ–‡ä»¶ï¼Œç¬¬äºŒä¸ªå‚æ•°ä¸ºåŠ å¯†ç”Ÿæˆçš„æ–‡ä»¶
+                            //	fe.decrypt(path+"\\"+tempList[i].getName(),path+"\\"+ tempList[i].getName());  //ç¬¬ä¸€ä¸ªå‚æ•°ä¸ºéœ€è¦è§£å¯†çš„æ–‡ä»¶ï¼Œç¬¬äºŒä¸ªå‚æ•°ä¸ºè§£å¯†ç”Ÿæˆçš„æ–‡ä»¶
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                        // System.out.println("æ–‡ä»¶ï¼š"+tempList[i]);
+                    }
+                }
+
+
+                zip(path,zipName,zipPath);
+                recurDelete(new File(path));
                 setPath(oldPath);
-        	}
-        	
+            }
+
             String currentMins = new SimpleDateFormat("yyyy_MM_dd HH mm ss").format(Calendar.getInstance().getTime());
             String needToWrite = "Valid Time:"+successTime + "\t" +"Invalid Time:"+ failTime + "\t" +"Total:"+(successTime+failTime)+"\t"+"Date:"+ currentMins + "\r\n";
             try {
-            	 //System.out.println(path);
+                //System.out.println(path);
                 FileWriter writer = new FileWriter(path+"\\"+currentMins+"Report.txt", true);
                 writer.write(needToWrite);
                 System.out.println(needToWrite);
@@ -140,44 +140,44 @@ public class PerformanceManager {
         }
         public void run(){writeToFile(successTime,failTime);}
     }
-    
+
     public void weeklyZip(){
-    	String [] fileName = getFileName(zipPath);
-		int i=0;
-		String start="",end="";
+        String [] fileName = getFileName(zipPath);
+        int i=0;
+        String start="",end="";
         for(String name:fileName)
         {
-           if(name.indexOf(".zip")!=-1){
-        	   if(i==0) start=name.substring(0,name.indexOf('.'));
-        	   end=name.substring(0,name.indexOf('.'));
-        	   i++;
-        	   unzip(zipPath+name,zipPath+"\\data\\"); //½âÑ¹7¸öÃ¿ÈÕÑ¹Ëõ°ü
-           }
+            if(name.indexOf(".zip")!=-1){
+                if(i==0) start=name.substring(0,name.indexOf('.'));
+                end=name.substring(0,name.indexOf('.'));
+                i++;
+                unzip(zipPath+name,zipPath+"\\data\\"); //è§£å‹7ä¸ªæ¯æ—¥å‹ç¼©åŒ…
+            }
         }
-       
-        zip(zipPath+"\\data\\",start+"-"+end+".zip", zipPath);//¹éµµÎªÖÜÑ¹Ëõ°ü
-		
-	}
+
+        zip(zipPath+"\\data\\",start+"-"+end+".zip", zipPath);//å½’æ¡£ä¸ºå‘¨å‹ç¼©åŒ…
+
+    }
     public static String [] getFileName(String path)
     {
         File file = new File(path);
         String [] fileName = file.list();
         return fileName;
     }
-    
+
     public void setZipPath(String zipPath) {
-		this.zipPath = zipPath;
-	}
+        this.zipPath = zipPath;
+    }
     public static void setPath(String newPath)
     {
-    	//ÁÙÊ±Î´¹éµµÊä³öÎÄ¼ş·ÅÈëÖ¸¶¨Â·¾¶µÄyyyy_MM_ddÎÄ¼ş¼ĞÏÂ£¬¹éµµÊ±£¬Ñ¹Ëõ°üÔÚÖ¸¶¨Â·¾¶ÏÂ
-    	 String fileName = new SimpleDateFormat("yyyy_MM_dd").format(Calendar.getInstance().getTime());
-         zipName=fileName+".zip";
-    	 path = newPath+fileName;
-        File file =new File(path); 
+        //ä¸´æ—¶æœªå½’æ¡£è¾“å‡ºæ–‡ä»¶æ”¾å…¥æŒ‡å®šè·¯å¾„çš„yyyy_MM_ddæ–‡ä»¶å¤¹ä¸‹ï¼Œå½’æ¡£æ—¶ï¼Œå‹ç¼©åŒ…åœ¨æŒ‡å®šè·¯å¾„ä¸‹
+        String fileName = new SimpleDateFormat("yyyy_MM_dd").format(Calendar.getInstance().getTime());
+        zipName=fileName+".zip";
+        path = newPath+fileName;
+        File file =new File(path);
         if(!file.exists()&& !file .isDirectory()){
-        	 file.mkdir(); 
-        	 
+            file.mkdir();
+
         }
     }
 
@@ -189,8 +189,8 @@ public class PerformanceManager {
         delay = _delay;
     }
     /**
-     * path: ÎÄ¼şµÄËùÔÚµÄÄ¿Â¼£¬ÎÄ¼ş¼Ğ
-     * delay: ¶à¾ÃĞ´ÈëÒ»´Î (µ¥Î»ÎªºÁÃë)
+     * path: æ–‡ä»¶çš„æ‰€åœ¨çš„ç›®å½•ï¼Œæ–‡ä»¶å¤¹
+     * delay: å¤šä¹…å†™å…¥ä¸€æ¬¡ (å•ä½ä¸ºæ¯«ç§’)
      */
     public  void start()
 
@@ -203,106 +203,106 @@ public class PerformanceManager {
         timer.scheduleAtFixedRate(task,executionDate,delay);
     }
     /**
-     * zippath: ĞèÒª½âÑ¹ËõµÄÎÄ¼şÄ¿Â¼
-     * unzipPath£ºÑ¹Ëõ´æ·ÅÄ¿Â¼
+     * zippath: éœ€è¦è§£å‹ç¼©çš„æ–‡ä»¶ç›®å½•
+     * unzipPathï¼šå‹ç¼©å­˜æ”¾ç›®å½•
      **/
-    public static void unzip(String zipPath, String unzipPath) {  
-        File warFile = new File(zipPath);  
-        try {  
-            
-            BufferedInputStream bufferedInputStream = new BufferedInputStream(  
-                    new FileInputStream(warFile));  
-            ArchiveInputStream in = new ArchiveStreamFactory()  
-                    .createArchiveInputStream(ArchiveStreamFactory.JAR,  
-                            bufferedInputStream);  
-            JarArchiveEntry entry = null;  
-            
-            while ((entry = (JarArchiveEntry) in.getNextEntry()) != null) {  
-                if (entry.isDirectory()) {  
-                    new File(unzipPath, entry.getName()).mkdir();  
-                } else {  
-                    OutputStream out = FileUtils.openOutputStream(new File(  
-                            unzipPath, entry.getName()));  
-                    IOUtils.copy(in, out);  
-                    out.close();  
-                }  
-            }  
-            in.close();  
-        } catch (FileNotFoundException e) {  
-            System.err.println("Î´ÕÒµ½zipÎÄ¼ş");  
-        } catch (ArchiveException e) {  
-            System.err.println("²»Ö§³ÖµÄÑ¹Ëõ¸ñÊ½");  
-        } catch (IOException e) {  
-            System.err.println("ÎÄ¼şĞ´Èë·¢Éú´íÎó");  
-        }  
-    }  
-		 
+    public static void unzip(String zipPath, String unzipPath) {
+        File warFile = new File(zipPath);
+        try {
+
+            BufferedInputStream bufferedInputStream = new BufferedInputStream(
+                    new FileInputStream(warFile));
+            ArchiveInputStream in = new ArchiveStreamFactory()
+                    .createArchiveInputStream(ArchiveStreamFactory.JAR,
+                            bufferedInputStream);
+            JarArchiveEntry entry = null;
+
+            while ((entry = (JarArchiveEntry) in.getNextEntry()) != null) {
+                if (entry.isDirectory()) {
+                    new File(unzipPath, entry.getName()).mkdir();
+                } else {
+                    OutputStream out = FileUtils.openOutputStream(new File(
+                            unzipPath, entry.getName()));
+                    IOUtils.copy(in, out);
+                    out.close();
+                }
+            }
+            in.close();
+        } catch (FileNotFoundException e) {
+            System.err.println("æœªæ‰¾åˆ°zipæ–‡ä»¶");
+        } catch (ArchiveException e) {
+            System.err.println("ä¸æ”¯æŒçš„å‹ç¼©æ ¼å¼");
+        } catch (IOException e) {
+            System.err.println("æ–‡ä»¶å†™å…¥å‘ç”Ÿé”™è¯¯");
+        }
+    }
+
     /**
-     * path: ĞèÒªÑ¹ËõµÄÎÄ¼şÄ¿Â¼
-     * FileName: Ñ¹ËõÎÄ¼şÃû
-     * zipPath£ºÑ¹Ëõ´æ·ÅÄ¿Â¼
+     * path: éœ€è¦å‹ç¼©çš„æ–‡ä»¶ç›®å½•
+     * FileName: å‹ç¼©æ–‡ä»¶å
+     * zipPathï¼šå‹ç¼©å­˜æ”¾ç›®å½•
      */
-    public static void zip(String path,String FileName, String zipPath) { 
-    	if(new File(path).exists()){
-        File outFile = new File(zipPath+"\\"+FileName);  
-        try {  
-            outFile.createNewFile();    
-            BufferedOutputStream bufferedOutputStream = new BufferedOutputStream(  
-                    new FileOutputStream(outFile));  
-            ArchiveOutputStream out = new ArchiveStreamFactory()  
-                    .createArchiveOutputStream(ArchiveStreamFactory.JAR,  
-                            bufferedOutputStream);  
+    public static void zip(String path,String FileName, String zipPath) {
+        if(new File(path).exists()){
+            File outFile = new File(zipPath+"\\"+FileName);
+            try {
+                outFile.createNewFile();
+                BufferedOutputStream bufferedOutputStream = new BufferedOutputStream(
+                        new FileOutputStream(outFile));
+                ArchiveOutputStream out = new ArchiveStreamFactory()
+                        .createArchiveOutputStream(ArchiveStreamFactory.JAR,
+                                bufferedOutputStream);
            /* if (path.charAt(path.length() - 1) != '/') {  
             	path += '/';  
             }  
   */
-            Iterator<File> files = FileUtils.iterateFiles(new File(path),  
-                    null, true);  
-            while (files.hasNext()) {  
-                File file = files.next();  
-                ZipArchiveEntry zipArchiveEntry = new ZipArchiveEntry(file,  
-                        file.getPath().replace(path.replace("/", "\\"), ""));  
-                out.putArchiveEntry(zipArchiveEntry);  
-                FileInputStream in =new FileInputStream(file);
-                IOUtils.copy(in, out);  
-                out.closeArchiveEntry();  
-                in.close();
-            }  
-            out.finish();  
-            out.close();  
-            bufferedOutputStream.close();
-            
-        } catch (IOException e) {  
-            System.err.println("´´½¨ÎÄ¼şÊ§°Ü");  
-        } catch (ArchiveException e) {  
-            System.err.println("²»Ö§³ÖµÄÑ¹Ëõ¸ñÊ½");  
-        }  
-    	}
-    }  
-    /**
-     * f£ºÉ¾³ıµÄÎÄ¼ş¼Ğ\ÎÄ¼ş
-     */
-	public static void recurDelete(File f){
+                Iterator<File> files = FileUtils.iterateFiles(new File(path),
+                        null, true);
+                while (files.hasNext()) {
+                    File file = files.next();
+                    ZipArchiveEntry zipArchiveEntry = new ZipArchiveEntry(file,
+                            file.getPath().replace(path.replace("/", "\\"), ""));
+                    out.putArchiveEntry(zipArchiveEntry);
+                    FileInputStream in =new FileInputStream(file);
+                    IOUtils.copy(in, out);
+                    out.closeArchiveEntry();
+                    in.close();
+                }
+                out.finish();
+                out.close();
+                bufferedOutputStream.close();
 
-	    for(File fi:f.listFiles()){
-	        if(fi.isDirectory()){
-	            recurDelete(fi);
-	        }
-	        else{
-	            fi.delete();
-	        }
-	    }
-	    f.delete();
-	}
-	
-	/**
-     * »ñÈ¡µ±Ç°ÈÕÆÚÊÇĞÇÆÚ¼¸<br>
-     * 
+            } catch (IOException e) {
+                System.err.println("åˆ›å»ºæ–‡ä»¶å¤±è´¥");
+            } catch (ArchiveException e) {
+                System.err.println("ä¸æ”¯æŒçš„å‹ç¼©æ ¼å¼");
+            }
+        }
+    }
+    /**
+     * fï¼šåˆ é™¤çš„æ–‡ä»¶å¤¹\æ–‡ä»¶
+     */
+    public static void recurDelete(File f){
+
+        for(File fi:f.listFiles()){
+            if(fi.isDirectory()){
+                recurDelete(fi);
+            }
+            else{
+                fi.delete();
+            }
+        }
+        f.delete();
+    }
+
+    /**
+     * è·å–å½“å‰æ—¥æœŸæ˜¯æ˜ŸæœŸå‡ <br>
+     *
      * @param dt
-     * @return µ±Ç°ÈÕÆÚÊÇĞÇÆÚ¼¸
+     * @return å½“å‰æ—¥æœŸæ˜¯æ˜ŸæœŸå‡ 
      */
     public static String getWeekOfDate(Date dt) {
-        String[] weekDays = {"ĞÇÆÚÈÕ", "ĞÇÆÚÒ»", "ĞÇÆÚ¶ş", "ĞÇÆÚÈı", "ĞÇÆÚËÄ", "ĞÇÆÚÎå", "ĞÇÆÚÁù"};
+        String[] weekDays = {"æ˜ŸæœŸæ—¥", "æ˜ŸæœŸä¸€", "æ˜ŸæœŸäºŒ", "æ˜ŸæœŸä¸‰", "æ˜ŸæœŸå››", "æ˜ŸæœŸäº”", "æ˜ŸæœŸå…­"};
         Calendar cal = Calendar.getInstance();
         cal.setTime(dt);
         int w = cal.get(Calendar.DAY_OF_WEEK) - 1;
@@ -312,7 +312,7 @@ public class PerformanceManager {
     }
     public static void main(String[] args) {
         PerformanceManager performanceManager = new PerformanceManager("E:\\","E:\\", 10);
-       long begin=Calendar.getInstance().getTimeInMillis();
+        long begin=Calendar.getInstance().getTimeInMillis();
         performanceManager.setBeginZipSpace(begin);
         performanceManager.setZipSpaceTime(10);
         performanceManager.setBeginZipFiled(begin);
