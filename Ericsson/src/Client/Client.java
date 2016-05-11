@@ -9,6 +9,7 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
 import javax.jms.Connection;
+import javax.jms.DeliveryMode;
 import javax.jms.Destination;
 import javax.jms.JMSException;
 import javax.jms.Message;
@@ -17,6 +18,7 @@ import javax.jms.MessageListener;
 import javax.jms.MessageProducer;
 import javax.jms.Session;
 import javax.jms.TextMessage;
+import javax.jms.Topic;
 import javax.swing.*;
 
 import org.apache.activemq.ActiveMQConnectionFactory;
@@ -310,13 +312,14 @@ public class Client extends JFrame{
 		try {
 			ActiveMQConnectionFactory factory = new ActiveMQConnectionFactory(port);
 
+			
+			
 			Connection connection = factory.createConnection();
-
-			Session session = connection.createSession(false, Session.AUTO_ACKNOWLEDGE);
+		    Session session = connection.createSession(false, Session.AUTO_ACKNOWLEDGE);
 
 			Destination dest = session.createTopic(toipcName);
 			MessageProducer producer = session.createProducer(dest);
-			
+			producer.setDeliveryMode(DeliveryMode.PERSISTENT);
 			MaxNumOfMessage maxNumOfMessage = new MaxNumOfMessage(100);
 
 			TextMessage msg = session.createTextMessage();
@@ -347,23 +350,38 @@ public class Client extends JFrame{
 	class Listen extends Thread{
 		String topicName;
 		boolean isLogin;
+		ActiveMQConnectionFactory factory=null;
+		Connection connection=null;
+		Session session = null;
+		Topic topic =null;
+		MessageConsumer consumer =null;
 		public Listen(String _topicName,boolean _isLogin){
 			topicName=_topicName;
 			isLogin=_isLogin;
 		}
+		public void initialize() throws JMSException{
+			factory = new ActiveMQConnectionFactory(port);
+			
+			connection = factory.createConnection();
+			connection.setClientID(staticUsername);
+			System.out.println("client="+staticUsername);
+			connection.start();
+         
+			session = connection.createSession(false,Session.AUTO_ACKNOWLEDGE);
+
+			topic = session.createTopic(topicName); //Topic名称
+
+			consumer = session.createDurableSubscriber(topic,staticUsername); //持久订阅
+			connection = factory.createConnection();
+		}
 		public  void ListenMsg()throws JMSException {
 
-			ActiveMQConnectionFactory factory = new ActiveMQConnectionFactory(port);
-			Connection connection;
+			
 			try {
-				connection = factory.createConnection();
-
-				connection.start();
-
-				Session session = connection.createSession(false, Session.AUTO_ACKNOWLEDGE);
-
-				Destination topic = session.createTopic(topicName);
-				MessageConsumer consumer = session.createConsumer(topic);
+				
+				if(factory ==null){
+					initialize();
+				}
 
 				consumer.setMessageListener(new MessageListener() {
 					public void onMessage(Message msg) {
@@ -440,6 +458,7 @@ public class Client extends JFrame{
     	
     	msgPath=ReadJson.GetConfig("ClientMsgPath", "sets.txt");
 		Client.Listen mainListen=client.new Listen("Ericsson",false);
+		mainListen.initialize();
 		mainListen.start();
 		client.name=String.valueOf(ClientCount);
 		Listen loginListen = client.new Listen(client.name,true);
