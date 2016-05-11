@@ -372,8 +372,7 @@ public class Client extends JFrame{
 			topic = session.createTopic(topicName); //Topic名称
 
 			consumer = session.createDurableSubscriber(topic,staticUsername); //持久订阅
-			connection = factory.createConnection();
-		}
+			}
 		public  void ListenMsg()throws JMSException {
 
 			
