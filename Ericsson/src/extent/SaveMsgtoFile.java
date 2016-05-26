@@ -9,6 +9,7 @@ public class SaveMsgtoFile {
 	
 	public static void SavetoFile(String path,String FileName,String msg) throws IOException{
 		BufferedWriter writer = new BufferedWriter(new FileWriter(new File(path+FileName), true));
+		System.out.println(msg);
 		writer.write(msg+"\r\n");
 		writer.close();
 	}

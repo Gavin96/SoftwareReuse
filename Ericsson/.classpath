@@ -2,21 +2,14 @@
 <classpath>
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
-	<classpathentry kind="lib" path="G:/apache-activemq-5.12.1-bin/apache-activemq-5.12.1/activemq-all-5.12.1.jar"/>
-	<classpathentry kind="lib" path="E:/Java workspace/SoftwareReuse/Jar/Topic.jar"/>
-	<classpathentry kind="lib" path="E:/Java workspace/SoftwareReuse/Jar/hamcrest-core-1.3.jar"/>
-	<classpathentry kind="lib" path="E:/Java workspace/SoftwareReuse/Jar/junit-4.12.jar"/>
-	<classpathentry kind="lib" path="E:/Java workspace/SoftwareReuse/Jar/重构License模块jar包/jar0414_License-1.0-SNAPSHOT-jar-with-dependencies.jar"/>
-	<classpathentry kind="lib" path="E:/Java workspace/SoftwareReuse/Jar/重构pm模块jar包/PM-1.0-SNAPSHOT-jar-with-dependencies.jar"/>
-	<classpathentry kind="lib" path="E:/Java workspace/SoftwareReuse/Jar/PM/PerformanceManager3.0.jar"/>
-	<classpathentry kind="lib" path="D:/github/Jar/重构CM模块jar包/CM-1.0-SNAPSHOT-jar-with-dependencies.jar"/>
-	<classpathentry kind="lib" path="D:/github/Jar/重构License模块jar包/jar0414_License-1.0-SNAPSHOT-jar-with-dependencies.jar"/>
-	<classpathentry kind="lib" path="D:/github/Jar/文件加密/FileEncryption.jar"/>
-	<classpathentry kind="lib" path="D:/github/Jar/hamcrest-core-1.3.jar"/>
-	<classpathentry kind="lib" path="D:/github/Jar/junit-4.12.jar"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
 	<classpathentry kind="lib" path="D:/github/Jar/Topic.jar"/>
-	<classpathentry kind="lib" path="D:/SE File/activemq/apache-activemq-5.12.1/activemq-all-5.12.1.jar"/>
 	<classpathentry kind="lib" path="D:/github/Jar/PM/PerformanceManager4.0.jar"/>
+	<classpathentry kind="lib" path="D:/github/Jar/zip包/commons-compress-1.5.jar"/>
+	<classpathentry kind="lib" path="D:/github/Jar/zip包/commons-io-2.0.1.jar"/>
+	<classpathentry kind="lib" path="D:/github/Jar/文件加密/FileEncryption.jar"/>
+	<classpathentry kind="lib" path="D:/github/Jar/重构CM模块jar包/CM-1.0-SNAPSHOT-jar-with-dependencies.jar"/>
+	<classpathentry kind="lib" path="D:/github/Jar/重构pm模块jar包/PM-1.0-SNAPSHOT-jar-with-dependencies.jar"/>
 	<classpathentry kind="lib" path="D:/github/Jar/CM/JSON/commons-beanutils.jar"/>
 	<classpathentry kind="lib" path="D:/github/Jar/CM/JSON/commons-collections-3.0.jar"/>
 	<classpathentry kind="lib" path="D:/github/Jar/CM/JSON/commons-lang-2.1.jar"/>
@@ -24,7 +17,7 @@
 	<classpathentry kind="lib" path="D:/github/Jar/CM/JSON/ezmorph-1.0.2.jar"/>
 	<classpathentry kind="lib" path="D:/github/Jar/CM/JSON/json-lib-1.1-jdk13.jar"/>
 	<classpathentry kind="lib" path="D:/github/Jar/CM/JSON/xom-1.0d10.jar"/>
-	<classpathentry kind="lib" path="D:/github/Jar/zip包/commons-compress-1.5.jar"/>
-	<classpathentry kind="lib" path="D:/github/Jar/zip包/commons-io-2.0.1.jar"/>
+	<classpathentry kind="lib" path="D:/SE File/activemq/apache-activemq-5.12.1/activemq-all-5.12.1.jar"/>
+	<classpathentry kind="lib" path="D:/github/Jar/重构License模块jar包/jar0414_License-1.0-SNAPSHOT-jar-with-dependencies.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

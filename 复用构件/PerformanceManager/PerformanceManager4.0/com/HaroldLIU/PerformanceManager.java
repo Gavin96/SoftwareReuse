@@ -31,6 +31,8 @@ public class PerformanceManager {
 
     public int successTime = 0, failTime = 0;
     private static  String path;
+    public  int level;
+
     private String zipPath;
     private final long delay;
     private static String zipName;
@@ -252,9 +254,9 @@ public class PerformanceManager {
                 ArchiveOutputStream out = new ArchiveStreamFactory()
                         .createArchiveOutputStream(ArchiveStreamFactory.JAR,
                                 bufferedOutputStream);
-           /* if (path.charAt(path.length() - 1) != '/') {  
-            	path += '/';  
-            }  
+           /* if (path.charAt(path.length() - 1) != '/') {
+            	path += '/';
+            }
   */
                 Iterator<File> files = FileUtils.iterateFiles(new File(path),
                         null, true);
@@ -310,6 +312,10 @@ public class PerformanceManager {
             w = 0;
         return weekDays[w];
     }
+
+
+
+
     public static void main(String[] args) {
         PerformanceManager performanceManager = new PerformanceManager("E:\\","E:\\", 10);
         long begin=Calendar.getInstance().getTimeInMillis();
