@@ -1,0 +1,14 @@
+使用之前首先需要import
+
+程序示例
+
+import FileEncryption.FileEncryption;
+
+FileEncryption fe = new FileEncryption("bbb");  //参数为随便一个字符串，不同的字符串生成不同的加密文件
+
+try {
+	fe.encrypt("e:/r.txt", "e:/r加密.txt");   //第一个参数为需要加密的文件，第二个参数为加密生成的文件
+	fe.decrypt("e:/r加密.txt", "e:/r1.txt");  //第一个参数为需要解密的文件，第二个参数为解密生成的文件
+} catch (Exception e) {
+	e.printStackTrace();
+}

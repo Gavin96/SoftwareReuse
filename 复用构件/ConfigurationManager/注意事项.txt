@@ -1,0 +1,3 @@
+加载配置文件注意事项：
+1、导入json需要的包（在 /Jar/JSON 文件夹中）
+   导入Configuration包(在 /Jar 文件夹中)

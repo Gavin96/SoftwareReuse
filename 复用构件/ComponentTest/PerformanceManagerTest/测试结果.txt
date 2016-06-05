@@ -1,0 +1,3 @@
+1.测试发现原性能文件名为"yyyy MM dd HH:mm:ss"+Report.txt，该文件名在windows平台不兼容，':'为不合法字符
+2.将文件名改为"yyyy_MM_dd HH mm ss"+Report.txt,则测试正常运行
+3.测试文件输出结果与预期一致

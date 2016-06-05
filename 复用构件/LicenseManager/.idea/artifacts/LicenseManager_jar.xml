@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" build-on-make="true" name="LicenseManager:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/LicenseManager_jar</output-path>
+    <root id="archive" name="LicenseManager.jar">
+      <element id="module-output" name="LicenseManager" />
+    </root>
+  </artifact>
+</component>

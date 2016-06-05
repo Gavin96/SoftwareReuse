@@ -1,0 +1,1 @@
+{"port":"61616","timeGap":"1000","maxRequestTimes":"5","path":"E:\\","zipPath":"E:\\","ClientMsgPath":"E:\\","ServerMsgPath":"E:\\","zipSpace":"86400","zipFiled":"604800","LogLevel":"Debug"}
