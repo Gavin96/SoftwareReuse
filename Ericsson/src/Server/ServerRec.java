@@ -114,11 +114,8 @@ public class ServerRec {
 	}
 	
 	public static void main(String[] args) throws Exception {
-
 		port = "tcp://localhost:" + ReadJson.GetConfig("port", "sets.txt");
 		ServerRec serverRec=new ServerRec();
-		
-		
 		Listen receivedMsg = serverRec.new Listen("Ericsson");
 		receivedMsg.start();
 		System.out.println("--------Server Recevie Start------");

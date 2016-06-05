@@ -159,6 +159,6 @@ public class ServerSave {
 		
 		Listen receivedMsg = serverSave.new Listen("ServerMsg");
 		receivedMsg.start();
-		System.out.println("--------Server Save Start------");
+		System.out.println("--------Server Recevie Start------");
 	}
 }
