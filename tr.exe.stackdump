@@ -1,0 +1,9 @@
+MSYS-1.0.12 Build:2011-07-20 17:52
+Exception: STATUS_PRIVILEGED_INSTRUCTION at eip=6806375F
+eax=6806375C ebx=68563894 ecx=006A322E edx=6856AE54 esi=00000000 edi=685600D4
+ebp=0029FE91 esp=0029FE64 program=C:\Users\win8\AppData\Local\Atlassian\SourceTree\git_local\bin\tr.exe
+cs=0023 ds=002B es=002B fs=0053 gs=002B ss=002B
+Stack trace:
+Frame     Function  Args
+0029FE91  6806375F  (04685600, 0300000F, EA000000, 00004144)
+1451129 [main] tr 6592 handle_exceptions: Error while dumping state (probably corrupted stack)
